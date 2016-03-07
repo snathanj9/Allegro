@@ -4,5 +4,5 @@
 
 void willFunc()
 {
-	std::cout << "Niggers for life" << std::endl;
+	std::cout << "MAKING AMERICA GREAT AGAIN FOR LIFE" << std::endl;
 }
