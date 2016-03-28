@@ -10,6 +10,7 @@ enum MYKEYS
 	KEY_DOWN,
 	KEY_LEFT,
 	KEY_RIGHT
+
 };
 
 enum MYBUTTONS
@@ -38,7 +39,6 @@ int main()
 	//allegro init
 	al_init();
 	al_init_acodec_addon();
-	al_init_primitives_addon();
 
 	// allegro installs
 	al_install_keyboard();
@@ -119,21 +119,20 @@ int main()
 				std::cout << "left button" << std::endl;
 				break;
 			case 2:
-				std::cout << "Right button" << std::endl;
+				std::cout << "right button" << std::endl;
 				break;
 			}
-
 		}
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
 
 		}
-			
+
 		if (al_is_event_queue_empty(queue))
 		{
 			al_clear_to_color(al_map_rgb(255, 255, 255));
-
-
+			
+			
 
 			al_flip_display();
 		}
