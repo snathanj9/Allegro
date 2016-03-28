@@ -2,6 +2,7 @@
 #include "allegro5\allegro.h"
 #include "allegro5\allegro_acodec.h"
 #include "allegro5\allegro_audio.h"
+#include "allegro5\allegro_primitives.h"
 
 enum MYKEYS
 {
@@ -9,12 +10,19 @@ enum MYKEYS
 	KEY_DOWN,
 	KEY_LEFT,
 	KEY_RIGHT
+};
 
+enum MYBUTTONS
+{
+	DEFAULT,
+	BUTTON_ONE,
+	BUTTON_TWO
 };
 
 const int FPS = 60;
 
 bool key[5]{ false, false, false, false, false };
+bool mouseButtons[2]{ false, false };
 
 int main()
 {
@@ -25,32 +33,27 @@ int main()
 	ALLEGRO_DISPLAY *display = nullptr;
 	al_set_app_name("Hello World from Allegro 5.1!");
 	ALLEGRO_EVENT_QUEUE *queue = NULL;
-	ALLEGRO_SAMPLE *sample = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 
 	//allegro init
 	al_init();
 	al_init_acodec_addon();
+	al_init_primitives_addon();
 
 	// allegro installs
 	al_install_keyboard();
 	al_install_audio();
-	al_reserve_samples(1);
+	al_install_mouse();
 
 	display = al_create_display(640, 480);
 	timer = al_create_timer(1.0 / FPS);
 	queue = al_create_event_queue();
 
-	sample = al_load_sample("../Dependencies/Audio/Ages3.ogg");
-
-	if (!sample)
-	{
-		std::cerr << "sample is a bitch" << std::endl;
-	}
 
 	al_register_event_source(queue, al_get_display_event_source(display));
 	al_register_event_source(queue, al_get_timer_event_source(timer));
 	al_register_event_source(queue, al_get_keyboard_event_source());
+	al_register_event_source(queue, al_get_mouse_event_source());
 	
 	al_start_timer(timer);
 
@@ -108,18 +111,32 @@ int main()
 
 			}
 		}
-			
-			if (al_is_event_queue_empty(queue))
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+		{
+			switch (ev.mouse.button)
 			{
-				if (!played)
-				{
-					al_play_sample(sample, 0.5, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
-					played = true;
-				}
-
-				al_clear_to_color(al_map_rgb(255, 255, 255));
-				al_flip_display();
+			case 1:
+				std::cout << "left button" << std::endl;
+				break;
+			case 2:
+				std::cout << "Right button" << std::endl;
+				break;
 			}
+
+		}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
+		{
+
+		}
+			
+		if (al_is_event_queue_empty(queue))
+		{
+			al_clear_to_color(al_map_rgb(255, 255, 255));
+
+
+
+			al_flip_display();
+		}
 		
 
 
