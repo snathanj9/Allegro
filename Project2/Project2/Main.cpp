@@ -116,10 +116,10 @@ int main()
 			switch (ev.mouse.button)
 			{
 			case 1:
-				std::cout << "left button pressed" << std::endl;
+				std::cout << "left button press" << std::endl;
 				break;
 			case 2:
-				std::cout << "right button pressed" << std::endl;
+				std::cout << "right button press" << std::endl;
 				break;
 			}
 		}
